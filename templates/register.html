@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Login Page</title>
+
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="{% static 'auth/css/logincss.css' %}">
+<div class='bold-line'></div>
+<div class='container'>
+  <div class='window'>
+    <div class='overlay'></div>
+    <div class='content'>
+      <div class='welcome'>Hello There!</div>
+      <div class='subtitle'>We're almost done. Before using our services you need to create an account.</div>
+      <div class='input-fields'>
+        <form method="post">
+          {% csrf_token %}
+            <input type='text' placeholder='Username' class='input-line full-width' name="username">
+            <input type='email' placeholder='Email' class='input-line full-width' name = 'email'>
+            <input type='password' placeholder='Password' class='input-line full-width' name = 'password1'>
+            <input type='password' placeholder='Confirm the password' class='input-line full-width' name = 'password2'>
+
+      </div>
+
+      <div class='spacing'>or continue with <span class='highlight'>Facebook</span></div>
+      <div><button class='ghost-round full-width'>Create Account</button></div>
+      </form>
+    </div>
+  </div>
+</div>
