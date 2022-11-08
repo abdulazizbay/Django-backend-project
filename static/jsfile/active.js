@@ -64,53 +64,54 @@ function order_by (sort){
     })
 }
 
-// function add_cart (id){
-//     url=`/add_to_cart/`
-//     fetch(url,{
-//         method:'POST',
-//         headers:{
-//             'Content-Type':'application/json',
-//             'X-CSRFToken':csrftoken,
-//         },
-//         body:JSON.stringify({
-//             'id':id
-//         })
-//         })
-//         .then((response)=>{
-//         response.json().then((data) => {
-//             console.log("Data keldi",data['count'])
-//             var products = data.products
-//             html = ``
-//             for(let i=0;i<products.length;i++) {
-//                     html += `
-//                         <div class="product">
-//                             <div class="product-cart-details">
-//                                 <h4 class="product-title">
-//                                     <a href="/product_info/${ products[i].id }">${ products[i].name }</a>
-//                                 </h4>
-//
-//                                 <span class="cart-product-info">
-//                                     <span class="cart-product-qty">111</span>
-//                                     x $ ${ products[i].price }
-//                                     </span>
-//                             </div><!-- End .product-cart-details -->
-//
-//                             <figure class="product-image-container">
-//                                 <a href="{% url 'product_info' p.id %}" class="product-image">
-//                                     <img src="${ products[i].image }" alt="product">
-//                                 /a>
-//                             </figure>
-//                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-//                         </div>`
-//             }
-//
-//
-//             document.getElementById('countid').innerHTML=data['count']
-//             document.getElementById('dropdown-products').innerHTML= html
-//         })
-//
-//     })
-// }
+function add_cart (id){
+    url=`/add_to_cart/`
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({
+            'id':id
+        })
+        })
+        .then((response)=>{
+        response.json().then((data) => {
+            console.log("Data keldi",data['count'])
+
+            var products = data['products']
+            html = ``
+            for(let i=0;i<products.length;i++) {
+                    html += `  
+                        <div class="product"> 
+                            <div class="product-cart-details">
+                                <h4 class="product-title">
+                                    <a href="/product_info/${ products[i].id }">${ products[i].name }</a>
+                                </h4>
+                   
+                                <span class="cart-product-info">
+                                    <span class="cart-product-qty">${ products[i].quantity }</span>
+                                    x $ ${ products[i].price }
+                                    </span>
+                            </div><!-- End .product-cart-details -->
+    
+                            <figure class="product-image-container">
+                                <a href="{% url 'product_info' p.id %}" class="product-image">
+                                    <img src="${ products[i].image }" alt="product">
+                                </a>
+                            </figure>
+                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                        </div>`
+            }
+
+
+            document.getElementById('countid').innerHTML=data['count']
+            document.getElementById('dropdown-products').innerHTML= html
+        })
+
+    })
+}
 
 function add_wishlist(id){
     url=`/add_wishlist/`
@@ -148,5 +149,24 @@ function delete_wishlist (id){
         response.json().then((data) => {
         })
         document.getElementById('product'+id).style.display = 'none'
+    })
+}
+
+function remove_cart (id){
+    url=`/remove_cart/`
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({
+            'id':id
+        })
+        })
+        .then((response)=>{
+        response.json().then((data) => {
+        })
+        document.getElementById('remove_cart'+id).style.display = 'none'
     })
 }

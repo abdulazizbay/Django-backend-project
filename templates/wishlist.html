@@ -37,7 +37,7 @@
 
 						<tbody>
                         {% for p in wishlist.product.all %}
-							<tr>
+							<tr id="product{{ p.id }}">
 								<td class="product-col">
 									<div class="product">
 										<figure class="product-media">
@@ -56,7 +56,7 @@
 								<td class="action-col">
 									<button onclick="add_cart({{p.id}})" class="btn btn-block btn-outline-primary-2"><i class="icon-cart-plus"></i>Add to Cart</button>
 								</td>
-								<td onclick="delete_wishlist({{ p.id }})" class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+								<td onclick="delete_wishlist({{ 1 }})" class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
 							</tr>
                         {% endfor %}
 						</tbody>

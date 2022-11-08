@@ -36,7 +36,7 @@
 
 									<tbody>
 										{% for p in products %}
-										<tr>
+										<tr id="remove_cart{{ p.product.id }}">
 											<td class="product-col">
 												<div class="product">
 													<figure class="product-media">
@@ -57,7 +57,7 @@
                                                 </div><!-- End .cart-product-quantity -->
                                             </td>
 											<td class="total-col">${{ p.total }}</td>
-											<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+											<td onclick="remove_cart({{ p.product.id }})" class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
 										</tr>
 										{% endfor %}
 									</tbody>

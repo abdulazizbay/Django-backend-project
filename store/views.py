@@ -45,28 +45,43 @@ def cart(request):
     cart_products = Cart_products.objects.filter(cart__user = request.user)
     return render(request,'cart.html',{'products':cart_products,'total':cart_products.first().total})
 
-#
-# def add_to_cart(request):
-#     data = json.loads(request.body)
-#     id = data['id']
-#     try:
-#         cart = Cart.objects.get(user=request.user)
-#     except:
-#         cart = Cart.objects.create(user = request.user)
-#     cart.product.add(Product.objects.get(id=id))
-#     cart.save()
-#     try:
-#         cart_products = Cart_products.objects.get(cart_id=cart.id,product_id=id)
-#         cart_products.add
-#         cart_products.summa
-#     except:
-#
-#         cart_products = Cart_products.objects.create(cart_id=cart.id,product_id = id)
-#         cart_products.summa
-#
-#     prod = [{'id':p.id,'name':p.name,'price':p.price,'image':p.imageURL,'quantity':Cart_products.objects.get(cart_id=cart.id,product_id=p.id).quantity } for p in cart.product.all()]
-#
-#     return JsonResponse({'count':cart.product.all().count(),'product':prod})
+
+def add_to_cart(request):
+    data = json.loads(request.body)
+    id = data['id']
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except:
+        cart = Cart.objects.create(user = request.user)
+    cart.product.add(Product.objects.get(id=id))
+    cart.save()
+    try:
+        cart_products = Cart_products.objects.get(cart_id=cart.id,product_id=id)
+        cart_products.add
+        cart_products.summa
+    except:
+
+        cart_products = Cart_products.objects.create(cart_id=cart.id,product_id = id)
+        cart_products.summa
+
+
+    print('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+    prod = [{'id':p.id,'name':p.name,'price':p.price,'image':p.imageURL,'quantity':Cart_products.objects.get(cart_id=cart.id,product_id=p.id).quantity } for p in cart.product.all()]
+
+    return JsonResponse({'count':cart.product.all().count(),'products':prod})
+
+def remove_cart(request):
+    print('viewga keldi')
+    data = json.loads(request.body)
+    id = data['id']
+    print(id)
+    product = Product.objects.get(id=id)
+
+    cart = Cart.objects.get(user=request.user)
+    cart.product.remove(product)
+    cart.save()
+    print('removed')
+    return JsonResponse({'st':'ok'})
 
 def add_wishlist(request):
     id = json.loads(request.body)['id']
